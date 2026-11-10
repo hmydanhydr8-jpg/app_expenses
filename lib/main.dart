@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nobody/models/list_colors.dart';
+import 'package:nobody/screens/sc_all.dart';
 import 'package:nobody/widgets/data.dart';
 import 'package:nobody/widgets/tab_bar_screen.dart';
 
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
                 : lightColors["primary"],
           ),
           home: TabBarScreen(),
+          routes: {ScAll.routeAll: (context) => const ScAll()},
         );
       },
     );

@@ -7,7 +7,7 @@ List<Map<String, dynamic>> listOperations = [];
 
 Future<void> saveMap(List<Map<String, dynamic>> list) async {
   final prefs = await SharedPreferences.getInstance();
-///////////////////
+  
   final data = list.map((op) {
     return {
       ...op,
@@ -15,7 +15,7 @@ Future<void> saveMap(List<Map<String, dynamic>> list) async {
       "state": (op["state"] as Color).toARGB32(),
     };
   }).toList();
-//////////////////
+  
   await prefs.setString("user", jsonEncode(data));
 }
 
@@ -26,7 +26,7 @@ Future<List<Map<String, dynamic>>> readMap() async {
   if (data == null) return [];
 
   final list = List<Map<String, dynamic>>.from(jsonDecode(data));
-//////////////////////
+  //////////////////////
   return list.map((op) {
     return {
       ...op,
@@ -37,9 +37,9 @@ Future<List<Map<String, dynamic>>> readMap() async {
   /////////////////
 }
 
-Future deleteList() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.remove("user");
+Future<void> deleteList() async {
+  listOperations.clear();
+  saveMap(listOperations);
 }
 
 bool isState(Map<String, dynamic> list, Color color) {
@@ -60,7 +60,6 @@ num sum(List<Map<String, dynamic>> list, Color state) {
   return total;
 }
 
-/////////////////////////////////////////
 bool theDarkMode = false;
 
 Future<void> saveSwitches() async {

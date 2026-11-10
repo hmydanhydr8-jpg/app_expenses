@@ -5,6 +5,7 @@ Future<Map<String, dynamic>?> showAddOperationDialog(BuildContext context) {
   int currentStep = 0;
   bool colorButtonRed = false;
   bool colorButtonGreen = false;
+  double heightCont = 350;
   final controller = TextEditingController();
 
   Map<String, dynamic> selectedType = {
@@ -32,17 +33,17 @@ Future<Map<String, dynamic>?> showAddOperationDialog(BuildContext context) {
             // تعديل 1: نرفع الحوار فوق لوحة المفاتيح
             margin: EdgeInsets.only(
               bottom: 90 + MediaQuery.of(dialogContext).viewInsets.bottom,
-              left: 20,
-              right: 20,
+              left: 10,
+              right: 10,
             ),
             width: double.infinity,
-            height: 266,
+            height: heightCont,
             child: Stack(
               children: [
                 Container(
-                  margin: const EdgeInsets.only(top: 16),
+                  margin: const EdgeInsets.only(top: 10),
                   width: double.infinity,
-                  height: 250,
+                  height: heightCont,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25),
@@ -64,31 +65,31 @@ Future<Map<String, dynamic>?> showAddOperationDialog(BuildContext context) {
                             child: Image.asset(
                               "assets/wellet.png",
                               width: double.infinity,
-                              height: 250,
+                              height: heightCont,
                               fit: BoxFit.cover,
                             ),
                           ),
 
                           Container(
-                            height: 250,
+                            height: heightCont,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
-                              color: Colors.black.withValues(alpha: 0.2),
+                              color: Colors.black.withValues(alpha: 0.4),
                             ),
                           ),
 
                           // المرحلة الأولى: اختيار التصنيف
                           if (currentStep == 0)
                             GridView.builder(
-                              padding: const EdgeInsets.all(16),
+                              padding: EdgeInsets.all(12),
                               itemCount: categories.length,
                               gridDelegate:
                                   const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 100,
-                                    mainAxisExtent: 90,
+                                    maxCrossAxisExtent: 90,
+                                    mainAxisExtent: 115,
                                     mainAxisSpacing: 12,
-                                    crossAxisSpacing: 12,
+                                    crossAxisSpacing: 8,
                                   ),
                               itemBuilder: (context, index) {
                                 final item = categories[index];
@@ -115,8 +116,11 @@ Future<Map<String, dynamic>?> showAddOperationDialog(BuildContext context) {
                                       const SizedBox(height: 6),
                                       Text(
                                         item.text,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                          fontSize: 19,
+                                          fontSize: 16,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -252,7 +256,7 @@ Future<Map<String, dynamic>?> showAddOperationDialog(BuildContext context) {
                                       ),
 
                                       textInputAction: TextInputAction.done,
-                                      maxLength: 8,
+                                      maxLength: 9,
                                       cursorColor: Colors.green,
                                     ),
 

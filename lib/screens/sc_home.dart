@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nobody/models/list_colors.dart';
 import 'package:nobody/widgets/data.dart';
 import 'package:nobody/widgets/wid_important.dart';
-import 'package:nobody/models/operation_category.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,21 +37,20 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => listOperations = data);
   }
 
-  final totalExpenses = sum(listOperations, Colors.red);
-  final totalIncome = sum(listOperations, Colors.green);
+  
 
   @override
   Widget build(BuildContext context) {
     //انشاء قائمة جديدة
     final recent = List<Map<String, dynamic>>.from(listOperations);
-    //مقارنة 
+    //مقارنة
     recent.sort((a, b) {
       return b["date"].compareTo(a["date"]);
     });
     final lastThree = recent.take(3).toList();
     final totalExpenses = sum(listOperations, Colors.red);
     final totalIncome = sum(listOperations, Colors.green);
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false,
       backgroundColor: theDarkMode
           ? darkColors["background"]
           : lightColors["background"],
@@ -71,11 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            ////
+            //// بطاقة الدخل والمصاريف
+            ////
             Padding(
               padding: const EdgeInsets.fromLTRB(18, 22, 18, 10),
-              ////
-              //// بطاقة الدخل والمصاريف
-              ////
+
               child: Container(
                 height: 200,
                 width: double.infinity,
@@ -87,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Colors.white.withValues(alpha: 0.3)
                           : Colors.black.withValues(alpha: 0.3),
                       blurRadius: 4,
-                      offset: const Offset(0, 5),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
@@ -96,7 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Stack(
                     children: [
                       Positioned.fill(
-                        child: Image.asset("assets/card_home.png", fit: BoxFit.cover),
+                        child: Image.asset(
+                          "assets/card_home.png",
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20),
@@ -269,28 +271,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(height: 10),
                           ]
                         : lastThree.map((op) {
-                            final cat = categories.firstWhere(
-                              (item) => item.id == op["id"],
-                              orElse: () => categories.first,
-                            );
-                            final d = op["date"] as DateTime;
-
-                            return AddPractical(
-                              text: cat.text,
-                              icon: cat.icon,
-                              colorCircle: cat.color,
-                              date: "${d.year}/${d.month}/${d.day}",
-                              price: op["amount"].toString(),
-                              iconPrice: isState(op, Colors.red)
-                                  ? Icons.trending_down_rounded
-                                  : Icons.trending_up_rounded,
-                              colorPrice: op["state"],
+                            return OperationItem(
+                              op: op,
+                              onUpdate: () {
+                                setState(() {});
+                              },
                             );
                           }).toList(),
                   ),
                 ),
               ),
             ),
+
             const SizedBox(height: 30),
           ],
         ),
