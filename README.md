@@ -1,4 +1,2 @@
 
-## 🎬 App Demo
-
-https://github.com/USERNAME/REPOSITORY/blob/main/assets/demo.mp4
+https://github.com/user-attachments/assets/ed441053-9039-4f03-b7c3-552c881af075
