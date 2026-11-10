@@ -36,14 +36,16 @@ class _ScAllState extends State<ScAll> {
             SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                
+
                 children: [
-                  
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 30.0,horizontal: 30),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 30.0,
+                          horizontal: 30,
+                        ),
                         child: CircleButtom(
                           icon: Icons.arrow_forward,
                           colorIcon: const Color.fromARGB(255, 37, 206, 42),
